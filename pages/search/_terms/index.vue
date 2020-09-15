@@ -19,7 +19,7 @@
                 {{products.length}} items found for
                 <span
                   class="font-weight-medium"
-                >"{{$route.query.terms}}"</span>
+                >"{{$route.params.terms}}"</span>
               </p>
               <v-spacer></v-spacer>
               <div class="d-flex d-lg-none">
@@ -204,7 +204,6 @@ export default {
       rating: 0,
       min: 0,
       max: 0,
-      searhTerms: "",
       items: [
         {
           name: "Price low to high",
@@ -274,19 +273,12 @@ export default {
   },
 
   created() {
-    this.searhTerms = this.$route.params.terms;
-    // /api/auth/products/search/?terms=${this.$route.params.terms}
     this.$axios
       .get(
-        `https://tango99.herokuapp.com/product/list/?search=${this.$route.params.terms}`
+        `https://tango99.herokuapp.com/product/list/?title=${this.$route.params.terms}`
       )
       .then((res) => {
-        this.products = res.data;
-        // this.products.forEach(product => {
-        //   if(prouct.brand){
-        //     this.brands.push()
-        //   }
-        // })
+        this.products = res.data.data;
         this.loading = false;
       });
   },

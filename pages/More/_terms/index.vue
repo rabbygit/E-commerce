@@ -11,13 +11,18 @@
     </v-container>
     <v-container v-else>
       <v-row>
-        <v-col class="d-none d-lg-flex" lg="1"></v-col>
-        <v-col cols="12" lg="10">
-          <v-container>
+        <v-col cols="12">
+          <v-container fluid>
+            <p class="mt-2 text-sm-body-1">
+              {{products.length || "0"}} items found for
+              <span
+                class="font-weight-medium"
+              >"{{$route.params.terms}}"</span>
+            </p>
+            <v-divider></v-divider>
             <!-- If products are found -->
             <v-row v-show="products.length">
-              <v-col class="d-none d-lg-flex flex-column" lg="2"></v-col>
-              <v-col cols="12" lg="10">
+              <v-col cols="12">
                 <ProductCardSection :products="displayedPosts" />
               </v-col>
             </v-row>
@@ -48,124 +53,73 @@
             </v-row>
           </v-container>
         </v-col>
-        <v-col class="d-none d-lg-flex" lg="1"></v-col>
       </v-row>
     </v-container>
   </v-container>
-  <!-- <h4>{{$route.params}}</h4> -->
 </template>
 
 <script>
-  export default {
-    auth: false,
-    loading: true,
-    components: {
-      ProductCardSection: () => import("~/components/ProductCardSection.vue"),
-    },
-    data() {
-      return {
-        dialog: false,
-        loading: false,
-        page: 1,
-        perPage: 3,
-        pages: [],
-        products: [],
-      };
-    },
-    methods: {
-      setPages() {
-        let numberOfPages = Math.ceil(this.products.length / this.perPage);
-        this.pages.length = 0;
-        for (let index = 1; index <= numberOfPages; index++) {
-          this.pages.push(index);
-        }
-      },
-
-      paginate(products) {
-        let page = this.page;
-        let perPage = this.perPage;
-        let from = page * perPage - perPage;
-        let to = page * perPage;
-        return products.slice(from, to);
-      },
-    },
-    watch: {
-      products() {
-        this.setPages();
-      },
+export default {
+  auth: false,
+  loading: true,
+  components: {
+    ProductCardSection: () => import("~/components/ProductCardSection.vue"),
+  },
+  data() {
+    return {
+      dialog: false,
+      loading: false,
+      page: 1,
+      perPage: 8,
+      pages: [],
+      products: [],
+    };
+  },
+  methods: {
+    setPages() {
+      let numberOfPages = Math.ceil(this.products.length / this.perPage);
+      this.pages.length = 0;
+      for (let index = 1; index <= numberOfPages; index++) {
+        this.pages.push(index);
+      }
     },
 
-    computed: {
-      displayedPosts() {
+    paginate(products) {
+      let page = this.page;
+      let perPage = this.perPage;
+      let from = page * perPage - perPage;
+      let to = page * perPage;
+      return products.slice(from, to);
+    },
+  },
+  watch: {
+    products() {
+      this.setPages();
+    },
+  },
+
+  computed: {
+    displayedPosts() {
+      if (this.products.length) {
         return this.paginate(this.products);
-      },
+      }
     },
+  },
 
-    created() {
-      this.searhTerms = this.$route.params.terms;
-      this.products = [
-        {
-          id: 1,
-          title: "Formal Shirt",
-          new_price: 500,
-        },
-        {
-          id: 2,
-          title: "Formal Shirt",
-          new_price: 500,
-        },
-        {
-          id: 3,
-          title: "Formal Shirt",
-          new_price: 500,
-        },
-        {
-          id: 4,
-          title: "Formal Shirt",
-          new_price: 500,
-        },
-        {
-          id: 5,
-          title: "Formal Shirt",
-          new_price: 500,
-        },
-        {
-          id: 1,
-          title: "Formal Shirt",
-          new_price: 500,
-        },
-        {
-          id: 2,
-          title: "Formal Shirt",
-          new_price: 500,
-        },
-        {
-          id: 3,
-          title: "Formal Shirt",
-          new_price: 500,
-        },
-        {
-          id: 4,
-          title: "Formal Shirt",
-          new_price: 500,
-        },
-        {
-          id: 5,
-          title: "Formal Shirt",
-          new_price: 500,
-        },
-      ];
-      // /api/auth/products/search/?terms=${this.$route.params.terms}
-      // this.$axios
-      //   .get(
-      //     `https://tango99.herokuapp.com/product/list/?search=${this.$route.params.terms}`
-      //   )
-      //   .then((res) => {
-      //     this.products = res.data;
-      //     this.loading = false;
-      //   });
-    },
-  };
+  created() {
+    if (this.$route.params.terms != "") {
+      this.$axios
+        .post(`https://tango99.herokuapp.com/product/showmore/`, {
+          name: this.$route.params.terms,
+        })
+        .then((res) => {
+          console.log(res.data);
+          this.products = res.data.data[0].products;
+          this.loading = false;
+        });
+    }
+  },
+};
 </script>
 
 <style>

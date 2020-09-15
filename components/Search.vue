@@ -21,10 +21,6 @@ export default {
   methods: {
     // Search function on enter take user to search page
     onSearch() {
-      // this.$router.push({
-      //   path: "/search/",
-      //   params: { terms: this.terms },
-      // });
       this.$router.push(`/search/${this.terms}`)
       this.terms = ''
     },

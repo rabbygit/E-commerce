@@ -173,7 +173,7 @@ export default {
   created() {
     // Products for section  https://fakestoreapi.com/products?limit=8
     this.$axios
-      .get("https://tango99.herokuapp.com/product/display/8")
+      .get("https://tango99.herokuapp.com/product/display/0")
       .then((response) => {
         if (response.data.success) {
           this.sections = response.data.data;

@@ -81,12 +81,6 @@
           <span class="d-xs-flex d-md-none drawer-icon">
             <v-app-bar-nav-icon @click="sidebar = !sidebar"></v-app-bar-nav-icon>
           </span>
-
-          <!-- <nuxt-link to="/">
-            <v-toolbar-title>LOGO</v-toolbar-title>
-           https://cdn.searchenginejournal.com/wp-content/uploads/2019/11/e8d53e91-3831-4429-8ba7-b5c290a5ba98-5dc0b9c0642a3.gif
-          </nuxt-link>-->
-
           <div class="d-none d-md-flex drawer-icon" v-if="typeof companyInfo !== 'undefined' ">
             <v-img
               :src="companyInfo.logo_url"
@@ -103,11 +97,11 @@
             <v-col class="d-flex flex-row">
               <div class="mr-10">
                 <v-icon medium>mdi-phone</v-icon>
-                <span class="text-lg-h6 text-caption">0175-7057579</span>
+                <span class="text-lg-subtitle-2 text-caption"  v-if="typeof companyInfo !== 'undefined' ">{{companyInfo.phone}}</span>
               </div>
               <div>
                 <v-icon medium>mdi-email</v-icon>
-                <span class="text-lg-h6 text-caption">example@gmail.com</span>
+                <span class="text-lg-subtitle-2 text-caption" v-if="typeof companyInfo !== 'undefined' ">{{companyInfo.email}}</span>
               </div>
             </v-col>
 
