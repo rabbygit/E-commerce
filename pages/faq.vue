@@ -28,7 +28,7 @@ export default {
       .get("https://tango99.herokuapp.com/site/show_faq")
       .then((response) => {
         if (response.data) {
-          this.faqs = response.data;
+          this.faqs = response.data.data;
         }
       });
   },

@@ -1,4 +1,0 @@
-RewriteEngine On
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^index.php(.*) http://tes.com.bd:49000/$1 [P,L]
-RewriteRule (.*) http://tes.com.bd:49000/$1 [P,L]
