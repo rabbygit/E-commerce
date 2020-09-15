@@ -134,7 +134,12 @@ export default {
     async increaseProductCount(product) {
       let response = await this.$axios.put(
         `https://tango99.herokuapp.com/Cart/increase/${product.product_id}/`,
-        { user_id: 1 }
+        {
+          user_id: 1,
+          color: product.product_color,
+          size: product.product_size,
+          unit: product.product_unit,
+        }
       );
 
       if (response.data.success) {
@@ -147,7 +152,12 @@ export default {
     async decreaseProductCount(product) {
       let response = await this.$axios.put(
         `https://tango99.herokuapp.com/Cart/decrease/${product.product_id}/`,
-        { user_id: 1 }
+        {
+          user_id: 1,
+          color: product.product_color,
+          size: product.product_size,
+          unit: product.product_unit,
+        }
       );
 
       if (response.data.success) {
@@ -160,7 +170,12 @@ export default {
     async removeFromCartAndCheckout(product) {
       let response = await this.$axios.put(
         `https://tango99.herokuapp.com/Cart/delete/${product.product_id}/`,
-        { user_id: 1 }
+        {
+          user_id: 1,
+          color: product.product_color,
+          size: product.product_size,
+          unit: product.product_unit,
+        }
       );
 
       if (response.data.success) {

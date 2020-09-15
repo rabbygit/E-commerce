@@ -54,13 +54,6 @@ export default {
     let userId = this.$auth.user
       ? this.$auth.user.user_id
       : this.$auth.$storage.getLocalStorage("non_verified_user_id");
-    // this.$axios
-    //   .get(`api/auth/checkout/${userId}`)
-    //   .then((response) => {
-    //     this.checkoutProducts = response.data.products;
-    //     // this.subTotal = response.data.price_total
-    //     this.getSubTotal(response.data.products);
-    //   });
   },
   computed: {
     getTotalCheckoutProductsCount() {

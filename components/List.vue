@@ -3,16 +3,16 @@
     <ul class="wraper">
       <li
         class="list"
-        :class="item.open ? 'active' : '' "
+        :class="item.active ? 'active' : '' "
         v-for="(item ) in collection"
         :key="item.id"
         @mouseover="onOver(item)"
         @mouseleave="onLeave(item)"
         @click.stop="search(item)"
       >
-        {{item.label}}
-        <v-icon v-if="item.open" small class="float-right">mdi-chevron-double-right</v-icon>
-        <List v-show="item.open" v-if="hasChildren(item)" :collection="item.children" />
+        {{item.title}}
+        <v-icon v-if="item.active" small class="float-right">mdi-chevron-double-right</v-icon>
+        <List v-show="item.active" v-if="hasChildren(item)" :collection="item.children" />
       </li>
     </ul>
   </div>
@@ -40,21 +40,22 @@ export default {
     // On Hover open the category if it has child category
     onOver: function (item) {
       if (item.children != null) {
-        item.open = true;
+        item.active = true;
       }
     },
 
     // On hover leave close child category
     onLeave: function (item) {
-      item.open = false;
+      item.active = false;
     },
 
     // Click event to search
     search(item) {
       // Push to search page
       this.$router.push({
-        name: "search-terms",
-        params: { terms: item.label },
+        name: "category-terms",
+        params: { terms: item.title },
+        query: { item : item }
       });
     },
   },
