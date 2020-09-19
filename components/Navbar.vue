@@ -97,11 +97,17 @@
             <v-col class="d-flex flex-row">
               <div class="mr-10">
                 <v-icon medium>mdi-phone</v-icon>
-                <span class="text-lg-subtitle-2 text-caption"  v-if="typeof companyInfo !== 'undefined' ">{{companyInfo.phone}}</span>
+                <span
+                  class="text-lg-subtitle-2 text-caption"
+                  v-if="typeof companyInfo !== 'undefined' "
+                >{{companyInfo.phone}}</span>
               </div>
               <div>
                 <v-icon medium>mdi-email</v-icon>
-                <span class="text-lg-subtitle-2 text-caption" v-if="typeof companyInfo !== 'undefined' ">{{companyInfo.email}}</span>
+                <span
+                  class="text-lg-subtitle-2 text-caption"
+                  v-if="typeof companyInfo !== 'undefined' "
+                >{{companyInfo.email}}</span>
               </div>
             </v-col>
 
@@ -158,8 +164,8 @@
               <template v-slot:activator="{ on , attrs }">
                 <v-icon text v-bind="attrs" v-on="on">mdi-format-list-bulleted-square</v-icon>
               </template>
-              <v-card min-height="300px" width="650px" style="overflow:auto" tile>
-                <List class="d-none d-sm-flex" :collection="collection" />
+              <v-card min-height="300px" width="700px" style="overflow:auto" tile>
+                <List class="d-none d-sm-flex" :collection="categories" />
                 <!-- <small-list class="d-flex d-sm-none" :collection="collection"></small-list> innerHeight > 500-->
                 <div class="d-flex d-sm-none">
                   <category-tree></category-tree>
@@ -210,7 +216,7 @@ export default {
       { title: "Sign Up", path: "/signup", icon: "face" },
       { title: "Sign In", path: "/signin", icon: "lock-open" },
     ],
-    collection: [
+    categories: [
       {
         id: 1,
         label: "Electronics",
@@ -288,6 +294,17 @@ export default {
       },
     ],
   }),
+  mounted() {
+    // Get all categories
+    this.$axios
+      .get("https://tango99.herokuapp.com/category/allcategories")
+      .then((response) => {
+        if (response.data) {
+          console.log(response.data);
+          this.categories = response.data;
+        }
+      });
+  },
 };
 </script>
 
