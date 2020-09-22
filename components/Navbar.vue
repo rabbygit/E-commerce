@@ -162,9 +162,10 @@
           </v-row>
           <v-row no-gutters justify="center" align="center">
             <v-col sm="3" class="d-none d-sm-flex"></v-col>
-            <v-col sm="6"></v-col>
+            <v-col sm="3"></v-col>
 
-            <v-col sm="3" class="d-none d-sm-flex">
+            <v-col sm="6" class="d-none d-sm-flex">
+              <v-spacer></v-spacer>
               <div class="search">
                 <Search />
               </div>
@@ -177,7 +178,7 @@
       </v-row>
 
       <template v-slot:extension v-show="!handleTabs">
-        <v-tabs right hide-slider>
+        <v-tabs right hide-slider centered>
           <v-tab v-if="$router.history.current.name != 'index' || innerHeight > 500">
             <v-menu :close-on-content-click="false" open-on-hover bottom offset-y>
               <template v-slot:activator="{ on , attrs }">
@@ -330,7 +331,7 @@ export default {
 
 <style >
 .search {
-  max-width: 700px;
+  width: 60%;
 }
 .v-toolbar__content,
 .v-toolbar__extension {

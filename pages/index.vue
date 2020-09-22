@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pl-0">
+  <v-container fluid class="pl-0 pb-0 pr-0">
     <v-row>
       <!-- Category Section -->
       <v-col md="2" class="d-none d-md-flex">
@@ -30,10 +30,72 @@
     <!-- Advertisement sections  -->
     <Advertisement />
 
+    <v-row>
+      <v-col cols="2">
+        <v-container>
+          <div style="border: 1px solid red;">
+            <v-img src="addvertisement1.png"></v-img>
+          </div>
+        </v-container>
+        <v-container>
+          <div style="border: 1px solid red;" class="text-center">
+            <a class="underline text-h6">MAKE UP SET</a>
+            <div class="my-5 mx-1" style="border:1px solid black;">
+              <v-img src="addvertisement2.png"></v-img>
+            </div>
+
+            <a class="underline text-h6">PRODUCTS NAME</a>
+            <div class="mt-5 mx-1">
+              <v-img src="images/FooterAdd/add1.jpg" class="custom-banner"></v-img>
+            </div>
+            <p class="my-5 text-h4 font-weight-bold">$500</p>
+          </div>
+        </v-container>
+      </v-col>
+      <v-col cols="10">
+        <v-container v-for="(section , index ) in sections" :key="index" fluid>
+          <v-row>
+            <!-- <v-col cols="10" md="8" offset-md="2"> -->
+            <v-col cols="12">
+              <a class="text-uppercase text-h5 underline">{{section.name}}</a>
+              <!-- <v-divider style="border-width:2px; width:159px;" class="red lighten-4"></v-divider> -->
+              <ProductCardSection :products="section.products" />
+              <v-btn
+                class="float-right mt-4"
+                tile
+                outlined
+                color="red darken-4"
+                nuxt
+                :to="`/more/${section.name}`"
+              >Show More</v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+
+        <!-- New Trending Items -->
+        <v-container fluid>
+          <v-row>
+            <v-col v-for=" n in 6" :key="n" cols="6" sm="4" md="2">
+              <Cardv2></Cardv2>
+            </v-col>
+          </v-row>
+        </v-container>
+
+        <v-container fluid>
+          <v-row>
+            <v-col v-for=" n in 6" :key="n" cols="6" sm="4" md="2">
+              <Cardv3></Cardv3>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-col>
+    </v-row>
+
     <!-- Product sections  -->
-    <v-container v-for="(section , index ) in sections" :key="index" fluid>
+    <!-- <v-container v-for="(section , index ) in sections" :key="index" fluid>
       <v-row>
-        <v-col cols="12" md="8" offset-md="2">
+        <v-col cols="10" md="8" offset-md="2">
+        <v-col cols="10">
           <h3 class="text-uppercase">{{section.name}}</h3>
           <v-divider style="border-width:2px; width:159px;" class="red lighten-4"></v-divider>
           <ProductCardSection :products="section.products" />
@@ -47,6 +109,11 @@
           >Show More</v-btn>
         </v-col>
       </v-row>
+    </v-container>-->
+
+    <!-- Footer Add section -->
+    <v-container fluid class="pa-0">
+      <footer-add></footer-add>
     </v-container>
   </v-container>
 </template>
@@ -60,11 +127,14 @@ export default {
     Logo: () => import("~/components/Logo.vue"),
     Carousel: () => import("~/components/Carousel.vue"),
     Card: () => import("~/components/Card.vue"),
+    Cardv2: () => import("~/components/Cardv2.vue"),
+    Cardv3: () => import("~/components/Cardv3.vue"),
     ProductCardSection: () => import("~/components/ProductCardSection.vue"),
     List: () => import("~/components/List.vue"),
     CategoryTree: () => import("~/components/CategoryTree"),
     Advertisement: () => import("~/components/Advertisement"),
     MultiCarousel: () => import("~/components/MultiCarousel"),
+    FooterAdd: () => import("~/components/FooterAdd"),
   },
   data() {
     return {
@@ -202,5 +272,29 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.underline::after {
+  display: block;
+  content: "";
+  width: 100%;
+  height: 2px;
+  background: #FF5615;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+}
+
+.underline {
+  position: relative;
+  color: black;
+  cursor: default;
+}
+
+.custom-banner{
+  border-radius: 20px;
+  height: 280px;
+}
+</style>
 
 

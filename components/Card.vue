@@ -30,9 +30,10 @@
             color="black"
             dark
             style="width:100%"
-            @click.prevent="addToCart(product)"
+            
           >Add to cart</v-btn>
         </v-card-actions>
+        <!-- @click.prevent="addToCart(product)" -->
       </div>
     </v-card>
   </v-hover>

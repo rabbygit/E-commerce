@@ -7,7 +7,7 @@
           :src="slider.image"
           height="200"
           width="250"
-          class="ma-12 img-class"
+          class="ma-4 img-class"
         >
         </v-img>
         <!-- </v-card> -->

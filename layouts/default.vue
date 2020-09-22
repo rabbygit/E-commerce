@@ -3,7 +3,7 @@
     <Navbar :companyInfo="companyInfo" :window="window" :innerHeight="innerHeight" />
 
     <v-main>
-      <v-container fluid class="grey lighten-5 pl-0">
+      <v-container fluid class="grey lighten-5 pa-0">
         <CartButton @onShowCart="showNow" :length="length" :subTotal="subTotal" />
         <nuxt />
         <transition name="slide" mode="out-in">
