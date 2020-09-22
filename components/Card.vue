@@ -9,8 +9,8 @@
       >
         <v-expand-transition>
           <v-overlay v-if="hover" absolute color="orange lighten-3">
-            <v-btn color="orange" tile nuxt :to="`/products/${product.id}/details`">
-              <v-icon color="white">mdi-magnify</v-icon>Details
+            <v-btn color="orange"  nuxt :to="`/products/${product.id}/details`">Details
+              <!-- <v-icon color="white">mdi-magnify</v-icon>Details -->
             </v-btn>
           </v-overlay>
         </v-expand-transition>
