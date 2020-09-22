@@ -77,7 +77,7 @@
 
     <v-app-bar fixed app height="120px">
       <v-row no-gutters>
-        <v-col cols="1" sm="1">
+        <v-col cols="2">
           <span class="d-xs-flex d-md-none drawer-icon">
             <v-app-bar-nav-icon @click="sidebar = !sidebar"></v-app-bar-nav-icon>
           </span>
@@ -85,27 +85,27 @@
             <v-img
               :src="companyInfo.logo_url"
               alt="Company Logo"
-              height="100px"
-              width="100px"
+              height="117px"
+              max-width="200px"
               class="grey darken-4"
             ></v-img>
           </div>
         </v-col>
 
-        <v-col cols="11" sm="11">
+        <v-col cols="10">
           <v-row class="d-none d-md-flex">
             <v-col class="d-flex flex-row">
               <div class="mr-10">
-                <v-icon medium>mdi-phone</v-icon>
+                <v-icon medium color="black">mdi-phone</v-icon>
                 <span
-                  class="text-lg-subtitle-2 text-caption"
+                  class="text-lg-h6 text-content"
                   v-if="typeof companyInfo !== 'undefined' "
                 >{{companyInfo.phone}}</span>
               </div>
               <div>
                 <v-icon medium>mdi-email</v-icon>
                 <span
-                  class="text-lg-subtitle-2 text-caption"
+                  class="text-lg-h6 text-caption"
                   v-if="typeof companyInfo !== 'undefined' "
                 >{{companyInfo.email}}</span>
               </div>
@@ -134,31 +134,50 @@
                   <v-btn color="primary" tile text dark @click="$auth.logout()">Log out</v-btn>
                 </div>
               </div>
-              <div v-else class="d-flex">
-                <div class="text-center mr-16">
-                  <v-btn text tile color="primary" dark nuxt to="/registration">Register</v-btn>
+              <div v-else class="d-flex align-center">
+                <p class="mb-0 mr-2 text-center">CURRENCY</p>
+                <div>
+                  <v-select
+                    :items="items"
+                    menu-props="auto"
+                    v-model="currency"
+                    prepend-icon="mdi-currency-usd"
+                    hide-details
+                    class="mr-10"
+                    style="width:150px;"
+                  ></v-select>
                 </div>
-                <div class="text-center mr-2">
-                  <v-btn text tile color="primary" dark nuxt to="/login">Login</v-btn>
+                <div class="text-center mr-10">
+                  <v-btn color="#f5f5f5" nuxt to="/registration">
+                    <v-icon left>mdi-account-circle</v-icon>Account
+                  </v-btn>
+                </div>
+                <div class="text-center">
+                  <v-btn color="#f5f5f5" nuxt to="/login">
+                    <v-icon left>mdi-lock</v-icon>Login
+                  </v-btn>
                 </div>
               </div>
             </v-col>
           </v-row>
-          <v-row no-gutters justify="center">
+          <v-row no-gutters justify="center" align="center">
             <v-col sm="3" class="d-none d-sm-flex"></v-col>
-            <v-col sm="6">
+            <v-col sm="6"></v-col>
+
+            <v-col sm="3" class="d-none d-sm-flex">
               <div class="search">
                 <Search />
               </div>
+              <v-btn color="white" fab small class="ml-5">
+              <v-icon>mdi-cart-outline</v-icon>
+            </v-btn>
             </v-col>
-
-            <v-col sm="3" class="d-none d-sm-flex"></v-col>
           </v-row>
         </v-col>
       </v-row>
 
       <template v-slot:extension v-show="!handleTabs">
-        <v-tabs centered hide-slider>
+        <v-tabs right hide-slider>
           <v-tab v-if="$router.history.current.name != 'index' || innerHeight > 500">
             <v-menu :close-on-content-click="false" open-on-hover bottom offset-y>
               <template v-slot:activator="{ on , attrs }">
@@ -210,7 +229,8 @@ export default {
     showCategory: true,
     sidebar: false,
     showTabs: false,
-    items: ["Foo", "Bar", "Fizz", "Buzz"],
+    items: ["Dolar"],
+    currency: "Dolar",
     menuItems: [
       { title: "Home", path: "/home", icon: "home" },
       { title: "Sign Up", path: "/signup", icon: "face" },
@@ -311,6 +331,12 @@ export default {
 <style >
 .search {
   max-width: 700px;
+}
+.v-toolbar__content,
+.v-toolbar__extension {
+  padding-bottom: 0px;
+  padding-top: 0px;
+  padding-left: 0px;
 }
 @media only screen and (max-width: 600px) {
   /* .v-toolbar__extension {

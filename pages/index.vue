@@ -1,21 +1,31 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="pl-0">
     <v-row>
       <!-- Category Section -->
       <v-col md="2" class="d-none d-md-flex">
-        <v-spacer></v-spacer>
+        <!-- <v-spacer></v-spacer> -->
         <v-card style="height:100% " id="mydiv">
           <List :collection="categories" />
         </v-card>
       </v-col>
       <!-- Slide Section  -->
-      <v-col cols="12" md="8">
+      <v-col cols="12" md="10">
         <Carousel />
       </v-col>
-      <v-col cols="12" md="2">
+      <!-- <v-col cols="12" md="2">
         <v-img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" style="min-height:100%;"></v-img>
-      </v-col>
+      </v-col>-->
     </v-row>
+
+    <v-container fluid style="background-color:#EEEEEE">
+      <v-row no-gutters>
+        <v-col></v-col>
+        <v-col cols="10">
+          <MultiCarousel />
+        </v-col>
+        <v-col></v-col>
+      </v-row>
+    </v-container>
 
     <!-- Advertisement sections  -->
     <Advertisement />
@@ -54,6 +64,7 @@ export default {
     List: () => import("~/components/List.vue"),
     CategoryTree: () => import("~/components/CategoryTree"),
     Advertisement: () => import("~/components/Advertisement"),
+    MultiCarousel: () => import("~/components/MultiCarousel"),
   },
   data() {
     return {
@@ -185,7 +196,7 @@ export default {
       .get("https://tango99.herokuapp.com/category/allcategories")
       .then((response) => {
         if (response.data) {
-          this.categories = response.data
+          this.categories = response.data;
         }
       });
   },
