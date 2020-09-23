@@ -169,9 +169,16 @@
               <div class="search">
                 <Search />
               </div>
-              <v-btn color="white" fab small class="ml-5">
-              <v-icon>mdi-cart-outline</v-icon>
-            </v-btn>
+              <v-btn
+                color="white"
+                fab
+                small
+                class="ml-5 text-center"
+                elevation="3"
+                @click="showCart"
+              >
+                <v-icon>mdi-cart-outline</v-icon>
+              </v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -179,12 +186,14 @@
 
       <template v-slot:extension v-show="!handleTabs">
         <v-tabs right hide-slider centered>
+          <v-tab nuxt to="/">Home</v-tab>
           <v-tab v-if="$router.history.current.name != 'index' || innerHeight > 500">
             <v-menu :close-on-content-click="false" open-on-hover bottom offset-y>
               <template v-slot:activator="{ on , attrs }">
-                <v-icon text v-bind="attrs" v-on="on">mdi-format-list-bulleted-square</v-icon>
+                <p v-bind="attrs" v-on="on" class="mb-0">Categories</p>
+                <v-icon>mdi-chevron-down</v-icon>
               </template>
-              <v-card min-height="300px" width="700px" style="overflow:auto" tile>
+              <v-card min-height="300px" width="675px" style="overflow:auto" tile>
                 <List class="d-none d-sm-flex" :collection="categories" />
                 <!-- <small-list class="d-flex d-sm-none" :collection="collection"></small-list> innerHeight > 500-->
                 <div class="d-flex d-sm-none">
@@ -193,7 +202,6 @@
               </v-card>
             </v-menu>
           </v-tab>
-          <v-tab nuxt to="/">Home</v-tab>
 
           <div class="demo d-flex">
             <v-tab class="d-none d-md-flex" nuxt to="/registration">Sign Up</v-tab>
@@ -315,6 +323,14 @@ export default {
       },
     ],
   }),
+  methods: {
+    // toggle cart
+    showCart() {
+      this.show = true;
+      // emit on default.vue
+      this.$emit("onShowCart", this.show);
+    },
+  },
   mounted() {
     // Get all categories
     this.$axios

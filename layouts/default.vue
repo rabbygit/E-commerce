@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <Navbar :companyInfo="companyInfo" :window="window" :innerHeight="innerHeight" />
+    <Navbar :companyInfo="companyInfo" :window="window" :innerHeight="innerHeight" @onShowCart="showNow"/>
 
     <v-main>
       <v-container fluid class="grey lighten-5 pa-0">
-        <CartButton @onShowCart="showNow" :length="length" :subTotal="subTotal" />
+        <!-- <CartButton @onShowCart="showNow" :length="length" :subTotal="subTotal" /> -->
         <nuxt />
         <transition name="slide" mode="out-in">
           <Cart v-if="selecetedShow" @close="onClose" :length="length" :products="products"></Cart>

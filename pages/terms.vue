@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-container>
+    <!-- <v-container>
       <v-row>
         <v-card color="light-blue lighten-3" width="100%" flat tile>
           <v-container>
@@ -17,9 +17,12 @@
           </v-container>
         </v-card>
       </v-row>
+    </v-container>-->
+    <v-container fluid>
+      <v-img src="terms_policy/conditions.png"></v-img>
     </v-container>
     <v-container v-if="loading">
-      <page-loading ></page-loading>
+      <page-loading></page-loading>
     </v-container>
     <v-container v-else>
       <v-timeline :dense="$vuetify.breakpoint.smAndDown">
@@ -47,22 +50,24 @@
 <script>
 export default {
   auth: false,
-  components : {
+  components: {
     PageLoading: () => import("~/components/PageLoading.vue"),
   },
   data() {
     return {
       companyInfo: {},
-      loading : true
+      loading: true,
     };
   },
   mounted() {
-    this.$axios.get("https://tango99.herokuapp.com/site/info").then((response) => {
-      if (response.data) {
-        this.companyInfo = response.data.data[0];
-        this.loading = false
-      }
-    });
+    this.$axios
+      .get("https://tango99.herokuapp.com/site/info")
+      .then((response) => {
+        if (response.data) {
+          this.companyInfo = response.data.data[0];
+          this.loading = false;
+        }
+      });
   },
 };
 </script>

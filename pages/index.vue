@@ -1,10 +1,13 @@
 <template>
-  <v-container fluid class="pl-0 pb-0 pr-0">
+  <v-container fluid class="pa-0">
     <v-row>
       <!-- Category Section -->
       <v-col md="2" class="d-none d-md-flex">
         <!-- <v-spacer></v-spacer> -->
-        <v-card style="height:100% " id="mydiv">
+        <v-card style="height:100% " id="mydiv" class="ml-8">
+          <!-- <div style="border-bottom:1px solid black">
+            <v-card-title>categories</v-card-title>
+          </div> -->
           <List :collection="categories" />
         </v-card>
       </v-col>
@@ -17,7 +20,7 @@
       </v-col>-->
     </v-row>
 
-    <v-container fluid style="background-color:#EEEEEE">
+    <!-- <v-container fluid style="background-color:#EEEEEE">
       <v-row no-gutters>
         <v-col></v-col>
         <v-col cols="10">
@@ -25,10 +28,10 @@
         </v-col>
         <v-col></v-col>
       </v-row>
-    </v-container>
+    </v-container> -->
 
     <!-- Advertisement sections  -->
-    <Advertisement />
+    <!-- <Advertisement /> -->
 
     <v-row>
       <v-col cols="2">
@@ -230,6 +233,7 @@ export default {
         },
       ],
       sections: {},
+      advertisements : []
     };
   },
   mounted() {
@@ -269,6 +273,16 @@ export default {
           this.categories = response.data;
         }
       });
+
+    // Advertisements of the site
+    this.$axios
+      .get("https://tango99.herokuapp.com/ad/showallads/")
+      .then((response) => {
+        if (response.data.success) {
+          this.advertisements = response.data.data;
+          this.loading = false;
+        }
+      });
   },
 };
 </script>
@@ -279,7 +293,7 @@ export default {
   content: "";
   width: 100%;
   height: 2px;
-  background: #FF5615;
+  background: #ff5615;
   position: absolute;
   bottom: -3px;
   left: 0;
@@ -291,7 +305,7 @@ export default {
   cursor: default;
 }
 
-.custom-banner{
+.custom-banner {
   border-radius: 20px;
   height: 280px;
 }

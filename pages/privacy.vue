@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-container>
-      <v-img src="/About.jpg"></v-img>
+    <v-container fluid>
+      <v-img src="terms_policy/policy_02.png"></v-img>
     </v-container>
     <div class="myClass" v-if="companyInfo.policy">
       <p v-for="(policy , index) in companyInfo.policy" :key="index">{{policy}}</p>
